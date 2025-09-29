@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Healthy Living with Cleaning Club Services</title>
+
+  <link rel="stylesheet" href="Home_s.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Welcome -->
+  <div class="welcome-bar">
+    <div class="welcome-text">Welcome to <strong>Cleaning Club Services</strong>!</div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="header-overlay">
+    <div class="logo">
+      <img src="Logo_FlowerW.png" alt="Cleaning Club Services Logo">
+    </div>
+
+    <!-- Hamburger (mobile) -->
+    <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <!-- Nav -->
+    <div class="nav-container" id="nav-menu">
+      <nav>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <a href="tel:510-600-1020" class="call-button">Call: 510-600-1020</a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero fade-in-section">
+    <div class="hero-content">
+      <h1>
+        <span>Healthy Living</span>
+        <span>with <strong>Cleaning Club Services</strong></span>
+      </h1>
+
+      <p>
+        <span>Since 2006, <strong>Cleaning Club Services</strong> has proudly served homes and businesses across the Bay Area with expert cleaning solutions.</span>
+        <span>With more than <strong>20 years</strong> of professional experience, our family-owned company specializes in <strong>Deep Cleaning</strong>, <strong>Move-Out Cleaning</strong>, and <strong>Office Maintenance</strong>.</span>
+        <span>From apartments and condos to offices and commercial spaces, <strong>Cleaning Club Services</strong> is dedicated to creating cleaner, healthier environments you can feel good about.</span>
+        <span>Serving <strong>San Jose</strong>, <strong>Santa Clara</strong>, <strong>Cupertino</strong>, <strong>Mountain View</strong>, <strong>Campbell</strong>, <strong>Fremont</strong>, and surrounding areas.</span>
+      </p>
+
+      <div class="buttons">
+        <button>Why Choose Us</button>
+        <button>Get a Free Quote</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="section services fade-in-section">
+    <h2>Our Services</h2>
+
+    <div class="service-items">
+      <div class="service-item">
+        <img src="Deep_Clean.png" alt="Deep Cleaning" class="service-icon">
+        <h3>Deep Cleaning</h3>
+        <p>Experience a spotless home with our top-to-bottom cleaning that tackles every detail for a fresh start.</p>
+      </div>
+
+      <div class="service-item">
+        <img src="Move_In_Clean.jpg" alt="Move-Out Cleaning" class="service-icon">
+        <h3>Move-Out Cleaning</h3>
+        <p>Make moving easier with thorough cleaning services that leave your property ready for its next chapter.</p>
+      </div>
+
+      <div class="service-item">
+        <img src="Office_Clean.jpg" alt="Office Maintenance" class="service-icon">
+        <h3>Office Maintenance</h3>
+        <p>Keep your workplace spotless and welcoming with scheduled cleanings tailored to your business needs.</p>
+      </div>
+    </div>
+
+    <div class="all-services-wrapper">
+      <a href="services.html" class="all-services-btn">All Services +</a>
+    </div>
+  </section>
+
+  <!-- Why Choose -->
+  <section class="section why-choose fade-in-section">
+    <h2>Why Choose <strong>Cleaning Club Services</strong>?</h2>
+    <ul class="why-bullets">
+      <li>Over <strong>20 Years</strong> of Proven Experience</li>
+      <li><strong>Family-Owned</strong> & Locally Trusted</li>
+      <li>Fully Insured & Professional Team</li>
+      <li>Dedicated to Your Satisfaction</li>
+    </ul>
+  </section>
+
+  <!-- Reviews -->
+  <section class="section clients fade-in-section reviews" id="google-reviews">
+    <h2>Client Testimonials</h2>
+
+    <div class="g-summary" id="g-summary"></div>
+
+    <div class="rev-carousel">
+      <button class="rev-nav rev-prev" aria-label="Previous">‹</button>
+      <div class="rev-viewport" id="rev-viewport">
+        <ul class="rev-track" id="rev-track"></ul>
+      </div>
+      <button class="rev-nav rev-next" aria-label="Next">›</button>
+    </div>
+
+    <div class="g-reviews-cta">
+      <a id="g-reviews-link" class="all-services-btn outline" target="_blank" rel="noopener">Read more on Google</a>
+      <a id="g-write-review" class="all-services-btn" target="_blank" rel="noopener">Write a Review</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div>&copy; 2025 <strong>Cleaning Club Services</strong> | Serving the <strong>Bay Area</strong></div>
+  </footer>
+
+  <!-- Font Awesome (for the Facebook icon) -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+  <!-- Google Places (replace YOUR_API_KEY / YOUR_GOOGLE_PLACE_ID) -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&loading=async" defer></script>
+
+  <!-- App JS -->
+  <script>
+    // ----------- Helpers -----------
+    const $ = (s, root=document) => root.querySelector(s);
+    const $$ = (s, root=document) => [...root.querySelectorAll(s)];
+
+    // ----------- Google Reviews -----------
+    const PLACE_ID = "YOUR_GOOGLE_PLACE_ID";
+    const MIN_RATING = 4;
+    const AUTOSCROLL_MS = 6000;
+
+    const stars = n => '★'.repeat(Math.round(n)) + '☆'.repeat(5 - Math.round(n));
+
+    window.addEventListener('load', () => {
+      if (!(window.google && google.maps && google.maps.places)) return;
+
+      const svc = new google.maps.places.PlacesService(document.createElement('div'));
+      svc.getDetails({
+        placeId: PLACE_ID,
+        fields: ['name','url','rating','user_ratings_total','reviews']
+      }, (place, status) => {
+        const carousel = $('.rev-carousel');
+        const track = $('#rev-track');
+        const viewport = $('#rev-viewport');
+        const summary = $('#g-summary');
+        const prevBtn = $('.rev-prev');
+        const nextBtn = $('.rev-next');
+
+        if (status !== google.maps.places.PlacesServiceStatus.OK || !place) {
+          summary.innerHTML = `<p style="color:#fff;opacity:.9">Reviews are unavailable right now.</p>`;
+          return;
+        }
+
+        const total = place.user_ratings_total || 0;
+        const rating = place.rating ? Number(place.rating).toFixed(1) : '—';
+        summary.innerHTML = `
+          <div class="g-badge">
+            <span class="g-logo">G</span>
+            <strong>${rating}</strong>
+            <span class="g-star">★</span>
+          </div>
+          <div class="g-count">${total} Reviews</div>
+        `;
+        $('#g-reviews-link').href = place.url;
+        $('#g-write-review').href = place.url + '&review=1';
+
+        const reviews = (place.reviews || []).filter(r => !MIN_RATING || r.rating >= MIN_RATING);
+        if (!reviews.length) {
+          summary.innerHTML += `<p style="margin-top:8px;color:#fff;opacity:.95">No Google reviews to display yet.</p>`;
+          return;
+        }
+
+        track.innerHTML = reviews.map(r => {
+          const date = new Date(r.time * 1000).toLocaleDateString();
+          const avatar = r.profile_photo_url
+            ? `<img class="rev-avatar" src="${r.profile_photo_url}" alt="">`
+            : `<div class="rev-avatar rev-letter">${(r.author_name||'?').charAt(0)}</div>`;
+          return `
+            <li class="rev-card">
+              <header class="rev-header">
+                ${avatar}
+                <div class="rev-hgroup">
+                  <a class="rev-author" href="${r.author_url || place.url}" target="_blank" rel="noopener">${r.author_name || 'Customer'}</a>
+                  <div class="rev-sub">${date}</div>
+                </div>
+                <span class="rev-gmark">G</span>
+              </header>
+              <div class="rev-stars">${stars(r.rating)}</div>
+              <p class="rev-text">${(r.text||'').replace(/</g,'&lt;').replace(/>/g,'&gt;')}</p>
+            </li>
+          `;
+        }).join('');
+
+        // Show carousel now that we have content
+        carousel.style.display = 'flex';
+
+        // Basic carousel
+        const GAP = 24;
+        const perView = () => window.innerWidth >= 1100 ? 3 : window.innerWidth >= 700 ? 2 : 1;
+        const cardWidth = () => viewport.clientWidth / perView();
+        const go = dir => viewport.scrollBy({ left: dir*(cardWidth()+GAP), behavior: 'smooth' });
+
+        prevBtn.onclick = () => go(-1);
+        nextBtn.onclick = () => go(1);
+
+        const updateArrows = () => {
+          const pv = perView();
+          const show = reviews.length > pv ? '' : 'none';
+          prevBtn.style.display = show;
+          nextBtn.style.display = show;
+        };
+        updateArrows();
+        window.addEventListener('resize', updateArrows);
+
+        // Optional auto-scroll
+        let timer = null;
+        const startAuto = () => { if (AUTOSCROLL_MS) { stopAuto(); timer = setInterval(() => go(1), AUTOSCROLL_MS); } };
+        const stopAuto  = () => { if (timer) clearInterval(timer); };
+        startAuto();
+        viewport.addEventListener('pointerdown', stopAuto);
+      });
+    });
+
+    // ----------- Fade-in on scroll -----------
+    document.addEventListener('DOMContentLoaded', () => {
+      const fade = $$('.fade-in-section');
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }});
+      }, { threshold: 0.1 });
+      fade.forEach(el => io.observe(el));
+    });
+
+    // ----------- Welcome bar / header snapping -----------
+    const syncHeader = () => {
+      const header = document.querySelector('header');
+      const welcomeBar = document.querySelector('.welcome-bar');
+      const scrolled = window.scrollY > 100;
+
+      header.classList.toggle('header-solid', scrolled);
+      header.classList.toggle('header-overlay', !scrolled);
+
+      if (window.scrollY > 0) { welcomeBar.style.display = 'none'; header.style.top = '0'; }
+      else { welcomeBar.style.display = 'flex'; header.style.top = '30px'; }
+    };
+    window.addEventListener('scroll', syncHeader);
+    window.addEventListener('load', syncHeader);
+
+    // ----------- Mobile nav (hamburger) -----------
+    document.addEventListener('DOMContentLoaded', () => {
+      const burger = $('#hamburger');
+      const menu = $('#nav-menu');
+
+      const toggleMenu = () => {
+        const open = menu.classList.toggle('open');
+        burger.classList.toggle('active', open);
+        burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      };
+
+      burger.addEventListener('click', toggleMenu);
+      $$('#nav-menu a').forEach(a => a.addEventListener('click', () => menu.classList.contains('open') && toggleMenu()));
+
+      // Ensure correct state on breakpoint changes
+      let lastW = window.innerWidth;
+      window.addEventListener('resize', () => {
+        const now = window.innerWidth;
+        if ((lastW <= 900 && now > 900) || (lastW > 900 && now <= 900)) {
+          menu.classList.remove('open');
+          burger.classList.remove('active');
+          burger.setAttribute('aria-expanded', 'false');
+        }
+        lastW = now;
+      });
+    });
+  </script>
+</body>
+</html>
